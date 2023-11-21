@@ -220,7 +220,7 @@ control_packet = ProtoField.string("svsi.control", "Control")
 video_packet = ProtoField.string("svsi.video", "Video")
 audio_packet = ProtoField.string("svsi.audio", "Audio")
 header_name = ProtoField.string("svsi.header", "Header")
-stream_number = ProtoField.string("svsi.stream_number", "StreamNumber")
+stream_number = ProtoField.string("svsi.stream_number", "Stream Number")
 stream = ProtoField.uint8("svsi.stream", "Stream", base.HEX)
 group = ProtoField.uint8("svsi.group", "Group", base.HEX)
 
