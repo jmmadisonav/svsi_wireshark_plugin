@@ -1,7 +1,7 @@
 local my_info = {
   version = "0.0.1",
   author = "Jim Maciejewski",
-  repository = "https://madisonav.com.au"
+  repository = "https://github.com/jmmadisonav/svsi_wireshark_plugin.git"
 }
 
 set_plugin_info(my_info)
