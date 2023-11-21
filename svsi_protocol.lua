@@ -220,7 +220,7 @@ control_packet = ProtoField.string("svsi.control", "Control")
 video_packet = ProtoField.string("svsi.video", "Video")
 audio_packet = ProtoField.string("svsi.audio", "Audio")
 header_name = ProtoField.string("svsi.header", "Header")
-stream_number = ProtoField.new("svsi.stream_number", "StreamNumber", base.DEC)
+stream_number = ProtoField.string("svsi.stream_number", "StreamNumber")
 stream = ProtoField.uint8("svsi.stream", "Stream", base.HEX)
 group = ProtoField.uint8("svsi.group", "Group", base.HEX)
 
@@ -261,7 +261,7 @@ function svsi_protocol.dissector(buffer, pinfo, tree)
   -- Stream number
   local concatenated_range = buffer:bytes(10, 1) .. buffer:bytes(6, 1)
   local stream_number_string = tonumber(concatenated_range:tohex(),16)
-  local stream_subtree = subtree:add(stream_number, buffer(6,5)):set_text("Stream Number: " .. stream_number_string)
+  local stream_subtree = subtree:add(stream_number, stream_number_string):set_text("Stream Number: " .. stream_number_string)
   stream_subtree:add(group, buffer(10, 1))
   stream_subtree:add(stream, buffer(6, 1))
   
@@ -287,7 +287,7 @@ function svsi_protocol.dissector(buffer, pinfo, tree)
     local placement = buffer(8, 1):bitfield(3, 5)
     local channels = tonumber(buffer:bytes(1,1):tohex(),16)
     audio_subtree:add(channel_count, buffer(8,1)):set_text("Channel Count: " .. buffer(8, 1):bitfield(0, 3))
-    audio_subtree:add(speaker_placement, buffer(8,1)):set_text("Speakers " .. speaker_placements[placement][channels])
+    audio_subtree:add(speaker_placement, buffer(8,1)):set_text("Speaker Mapping " .. speaker_placements[placement][channels])
   end
 
   -- Video Only
